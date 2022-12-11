@@ -31,6 +31,7 @@ public class controller {
     @PostMapping(path="/",consumes = "application/json",produces = "application/json")
     public HashMap<String, String> AddTask(@RequestBody Task t){
         HashMap<String, String> map = new HashMap<>();
+        t.setTaskStatus("task assigned");
         dao2.save(t);
         map.put("status","success");
         return map;
@@ -40,6 +41,23 @@ public class controller {
     @GetMapping( "/tasks")
     public List<Map<String,String>> viewTask(){
         return dao2.findTask();
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewEmp", consumes = "application/json", produces = "application/json")
+    public List<Map<String, String>> viewEmpTask(@RequestBody Employee employee) {
+        return dao2.findEmpTask(employee.getEmployeeCode());
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/update",consumes = "application/json",produces = "application/json")
+    public HashMap<String, String> updateEmployee(@RequestBody Task t){
+        HashMap<String, String> map = new HashMap<String, String>();
+        System.out.println(String.valueOf(t.getId()));
+        System.out.println(String.valueOf(String.valueOf(t.getTaskStatus())));
+        dao2.updateTask(t.getTaskStatus(),t.getId());
+        map.put("status","success");
+        return map;
+
     }
 
 }

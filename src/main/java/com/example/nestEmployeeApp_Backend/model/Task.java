@@ -15,7 +15,7 @@ public class Task {
     private int employeeCode;
     private String taskName;
     private String dueDate;
-    private String taskStatus="task assigned";
+    private String taskStatus;
 
     public Task(int id, int employeeCode, String taskName, String dueDate, String taskStatus) {
         this.id = id;
